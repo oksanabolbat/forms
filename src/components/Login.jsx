@@ -1,17 +1,12 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Login() {
-    const [formData, setFormData] = useState({ email: "", password: "" });
-    const handleInputChange = (identifier, value) => {
-        setFormData((prev) => ({
-            ...prev,
-            [identifier]: value,
-        }));
-    };
+    const email = useRef();
+    const password = useRef();
 
     const handleSubmitForm = (event) => {
         event.preventDefault();
-        console.log(formData);
+        console.log(email.current.value, password.current.value);
     };
     return (
         <form onSubmit={handleSubmitForm}>
@@ -20,15 +15,7 @@ export default function Login() {
             <div className="control-row">
                 <div className="control no-margin">
                     <label htmlFor="email">Email</label>
-                    <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        onChange={(event) =>
-                            handleInputChange("email", event.target.value)
-                        }
-                        value={formData.email}
-                    />
+                    <input id="email" type="email" name="email" ref={email} />
                 </div>
 
                 <div className="control no-margin">
@@ -37,16 +24,15 @@ export default function Login() {
                         id="password"
                         type="password"
                         name="password"
-                        onChange={(event) =>
-                            handleInputChange("password", event.target.value)
-                        }
-                        value={formData.password}
+                        ref={password}
                     />
                 </div>
             </div>
 
             <p className="form-actions">
-                <button className="button button-flat">Reset</button>
+                <button className="button button-flat" type="reset">
+                    Reset
+                </button>
                 <button className="button" type="submit">
                     Login
                 </button>
