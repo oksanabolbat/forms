@@ -9,11 +9,10 @@ const useInput = (defaultValue, validateFn) => {
     };
 
     const handleInputBlur = () => {
-        console.log("blur");
         setDidEdit(true);
     };
     const isNotValid = didEdit && !validateFn(inputValue);
-    console.log(didEdit, validateFn);
+
     return { inputValue, isNotValid, handleInputChange, handleInputBlur };
 };
 
